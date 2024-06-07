@@ -1,66 +1,8 @@
-## Foundry
+## ayo
+![ayo board](asset/ayo.jpg)
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+on-chain [ayo](https://en.wikipedia.org/wiki/Ayoayo) game engine inspired by [fiveoutofnine](https://github.com/fiveoutofnine/fiveoutofnine-chess).
 
-Foundry consists of:
+## how to play
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+[![Ayo explainer video](https://img.youtube.com/vi/21JTI7_a9Bk/0.jpg)](https://www.youtube.com/watch?v=21JTI7_a9Bk)
