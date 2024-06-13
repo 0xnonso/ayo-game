@@ -23,7 +23,7 @@ pragma solidity ^0.8.13;
 ///         - The first bit represents the pit color. 0 for dark brown pit(P0), 1 for grey pit(P1).
 ///         - The remaining 5 bits represents the number of seeds in the pit. This implies
 ///             that the maximum number of seeds that can ever be in a pit is 2 ** 5 - 1.
-///
+/// 
 ///     The whole board is represented with 38 indices each holding 6 bits which is 228 bits.
 ///
 ///         1 ->  37 36 35 34 33 32 31 30 29 28 27 26 25 24 23 22 21 20 19
@@ -106,9 +106,9 @@ library Ayo {
             let lastPitIndex := sub(numSeeds, 0x01)
             let lBound := sub(0x13, boardWidth)
             let playerWithLastCapture := 0x0
-            let i := 0x0
+            
             // for seeds in pit sow seed to all other pits till you hit an empty pit.
-            for {} lt(i, numSeeds) {i := add(i, 0x01)} {
+            for {let i := 0x0} lt(i, numSeeds) {i := add(i, 0x01)} {
                 let currentIndex := add(lBound, mod(add(move, i), range))
                 indexMul := mul(currentIndex, 0x06)
 
@@ -215,8 +215,8 @@ library Ayo {
             let range := add(boardWidth, boardWidth)
             let maxPitsCaptured := sub(range, 0x01)
             let startIndex := sub(0x13, boardWidth)
-            let i := 0x0
-            for {} lt(i, range) {i := add(i, 0x01)}{
+
+            for {let i := 0x0} lt(i, range) {i := add(i, 0x01)}{
                 let currentIndex := add(startIndex, mod(i, range))
                 let indexMul := mul(currentIndex, 0x06)
 
@@ -424,15 +424,13 @@ library Ayo {
     function setWinner(uint256 board, bool player1, bool draw) internal pure returns(uint256) {
         // zero out winner slot.
         board &= 0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE7;
-        uint256 winnerStatus;
         if(!draw){
-            winnerStatus = 0x10;
+            assembly {
+                let winnerStatus := 0x10
+                board := add(or(board, winnerStatus), shl(0x03, player1))
+            }
         } else {
             board |= 0x8;
-            return board;
-        }
-        assembly {
-            board := or(or(board, winnerStatus), shl(0x04, player1))
         }
         return board;
     }
@@ -465,6 +463,13 @@ library Ayo {
         }
     }
 
+    /// @return status Game Winner status.
+    function getWinnerStatus(uint256 board) internal pure returns(uint256 status) {
+        assembly {
+            status := and(shr(0x03, board), 0x03)
+        }
+    }
+
     /////////////////////////////////////////////////////////////////////////////
     ///                                 CUSTOM                                ///
     /////////////////////////////////////////////////////////////////////////////
@@ -486,7 +491,7 @@ library Ayo {
         uint256 nPlayers
     ) internal pure returns(uint256, uint256) {
         uint256 boardWidth = getBoardWidth(board);
-        // assert nplayers % 2 == 0
+        // assert nplayers % 2 == 0. only supports even number of players.
         // assert boardWidth % (nPlayers/2) == 0
         if(nPlayers % 0x02 != 0x0 && boardWidth % (nPlayers / 0x2) != 0x0){
             return(board, 0x0);
@@ -516,9 +521,9 @@ library Ayo {
             
             let lastPitIndex := sub(numSeeds, 0x01)
             let lBound := sub(0x13, boardWidth)
-            let i := 0x0
+
             // for seeds in pit sow seed to all other pits till you hit an empty pit.
-            for {} lt(i, numSeeds) {i := add(i, 0x01)} {
+            for {let i := 0x0} lt(i, numSeeds) {i := add(i, 0x01)} {
                 let currentIndex := add(lBound, mod(add(move, i), mload(0xA0)))
                 indexMul := mul(currentIndex, 0x06)
 

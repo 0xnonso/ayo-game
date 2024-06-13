@@ -12,7 +12,7 @@ contract PlayAyo2x6 is ERC721, Ownable {
     uint256 private constant TIME_OUT = 420 seconds; // 7 minutes
     address private constant GAME_ENGINE = address(0x01);
     address private constant ADDRESS_ZERO = address(0x0);
-    
+
     uint256 private immutable MAX_GAME_ROUNDS;
 
     uint256 internal gameBoard;
@@ -139,7 +139,6 @@ contract PlayAyo2x6 is ERC721, Ownable {
         return unicode"AyóAyó";
     }
 
-    /// @dev Returns the token collection symbol.
     function symbol() public pure override returns (string memory){
         return "ayo";
     }
