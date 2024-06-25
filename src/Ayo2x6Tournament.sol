@@ -9,9 +9,6 @@ contract Ayo2x6Tournament is Ownable {
     uint256 internal immutable DELTA;
     address internal immutable TOURNAMENT_FUND;
 
-    uint256 internal totalPitsSupply = 0;
-    uint256 internal totalBoardsSupply = 0;
-
     mapping(address => bool) internal isBoardMinted;
     mapping(address => bool) internal pending;
     mapping(address => bool) internal gameCreated;
