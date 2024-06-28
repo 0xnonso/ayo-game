@@ -90,14 +90,14 @@ library AyoBoard {
                     totalBoardPits - i,
                     Ayo.getPitSeedsNormalised(totalBoardPits - i, board),
                     Ayo.getPitSeedsNormalised(totalBoardPits - i, newBoard),
-                    Ayo.getPitOwner(totalBoardPits - i, board) != 0x01
+                    Ayo.getPitOwnerNormalised(totalBoardPits - i, board) != 0x01
                 ),
                 generateSVGPitLower(
                     move,
                     i,
                     Ayo.getPitSeedsNormalised(i, board),
                     Ayo.getPitSeedsNormalised(i, newBoard),
-                    Ayo.getPitOwner(i, board) != 0x0
+                    Ayo.getPitOwnerNormalised(i, board) != 0x0
                 )
             ));
         }

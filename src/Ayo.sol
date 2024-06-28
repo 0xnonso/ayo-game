@@ -311,10 +311,7 @@ library Ayo {
     /// @param board Game Board.
     /// @return seed Number of seeds in a pit.
     function getPitSeedsNormalised(uint256 index, uint256 board) internal pure returns(uint256 seed){
-        uint256 boardWidth = getBoardWidth(board);
-        assembly{
-            seed := and(shr(sub(0xFA, mul(0x06, add(sub(0x13, boardWidth), index))), board), 0x1F)
-        }
+        return getPitSeeds(getPitIndexNormalised(index, board), board);
     }
 
     /// @return owner Owner of pit.
@@ -322,6 +319,11 @@ library Ayo {
         assembly{
             owner := and(shr(sub(0xFF, mul(0x06, index)), board), 0x01)
         }
+    }
+
+    /// @return owner Owner of pit.
+    function getPitOwnerNormalised(uint256 index, uint256 board) internal pure returns(uint256 owner){
+        return getPitOwner(getPitIndexNormalised(index, board), board);
     }
 
     /// @notice Get whose turn it is to sow seed on the board.
