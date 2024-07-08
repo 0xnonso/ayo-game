@@ -503,12 +503,13 @@ library Ayo {
         uint256 scoreBoard;
 
         assembly {
+            let memPtr := mload(0x40)
             // uint256 playerTurn = getPitIndex(move, board) / nPlayers;
-            mstore(0x80, div(sub(move, sub(0x13, boardWidth)), nPlayers))
+            mstore(0x40, div(sub(move, sub(0x13, boardWidth)), nPlayers))
             // let range := add(boardWidth, boardWidth)
-            mstore(0xA0, add(boardWidth, boardWidth))
+            mstore(0x20, add(boardWidth, boardWidth))
             // let playerWithLastCapture := 0x0
-            mstore(0xC0, 0x0)
+            mstore(0x0, 0x0)
 
             let indexMul := mul(move, 0x06)
             let shiftrMask := shr(indexMul, 0x7C00000000000000000000000000000000000000000000000000000000000000)
@@ -582,6 +583,8 @@ library Ayo {
                     break
                 }
             }
+
+            mstore(0x40, memPtr)
         }
         return (board, scoreBoard);
     }
