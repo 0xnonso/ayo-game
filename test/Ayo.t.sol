@@ -30,10 +30,9 @@ contract AyoTest is Test {
         
         uint256 move = type(uint).max;
         uint256 board;
-        for(uint256 i;move!=0; i++){
+        for(uint256 i; move!=0; i++){
             (board, ,) = ayo.getGameData();
             move = Ayo2x6Engine.searchMoves(board, 3);
-            // console2.log(move);
             move = Ayo.getPitIndex(move, board);
 
             // prank first player
@@ -43,7 +42,6 @@ contract AyoTest is Test {
 
             (board, ,) = ayo.getGameData();
             move = Ayo2x6Engine.searchMoves(board, 3);
-            // console2.log(move);
             if(move == 0) break;
             move = Ayo.getPitIndex(move, board);
             

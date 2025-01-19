@@ -8,27 +8,27 @@ import {Utils} from "./vendor/Utils.sol";
 
 /// @title Library for generating SVG art for Ayo board.
 library AyoBoard {
-    string internal constant SVG_SCAFFOLD = '<svg viewBox="-50 -50 600 600" style="background: #D3D3'
-    'D3;" xmlns="http://www.w3.org/2000/svg"> <defs> <radialGradient id="pitGradientPlayer1" cx="50%'
-    '" cy="50%" r="50%" fx="50%" fy="50%"> <stop offset="0%" style="stop-color:#8B5A2B; stop-opacity'
-    ':1" /> <stop offset="100%" style="stop-color:#4E2C1E; stop-opacity:1" /> </radialGradient> <rad'
-    'ialGradient id="pitGradientPlayer2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%"> <stop offset="'
-    '0%" style="stop-color:#9B8B7B; stop-opacity:1" /> <stop offset="100%" style="stop-color:#70645E'
-    '; stop-opacity:1" /> </radialGradient> <rect id="base-rect" width="50" height="90" x="0" y="0" '
-    'rx="15" style="fill:#a06734;fill-opacity:1;stroke-width:0.5;stroke:#a06734" /> <circle id="pit-'
-    '0" r="20" fill="url(#pitGradientPlayer1)"/> <circle id="pit-1" r="20" fill="url(#pitGradientPla'
-    'yer2)"/> <circle id="seed" r="2" fill="#FFFFF0"/> <g id="score-board-0"> <rect width="50" heigh'
-    't="90" x="0" y="0" rx="15" style="fill:#a06734;fill-opacity:1;stroke-width:0.2;stroke:#a06734" '
-    '/> <rect width="34" height="78" x="8" y="6" rx="15" fill="url(#pitGradientPlayer1)" /> </g> <g '
-    'id="score-board-1"> <rect width="50" height="90" x="0" y="0" rx="15" style="fill:#a06734;fill-o'
-    'pacity:1;stroke-width:0.2;stroke:#a06734" /> <rect width="34" height="78" x="8" y="6" rx="15" f'
-    'ill="url(#pitGradientPlayer2)" /> </g> </defs> <style> .fade { animation: fadeOut 2s 3s forward'
-    's; } .index-label { fill: black; font-size: 12px; font-weight: 600; text-anchor: middle; font-f'
-    'amily: "Poppins", sans-serif; } .grow { animation: growIn 2s 3s forwards; } @keyframes fadeOut '
-    '{ from { opacity: 1; } to { opacity: 0; } } @keyframes growIn { from { opacity: 0; } to { opaci'
-    'ty: 1; } } .orbit { fill: none; stroke: #2E8B57; stroke-width: 1.5; stroke-dasharray: 157; stro'
-    'ke-dashoffset: 157; animation: drawCircle 4s linear infinite; } @keyframes drawCircle { 0%, 100'
-    '% { stroke-dashoffset: 157; } 50% { stroke-dashoffset: 0; } } </style>';
+    string internal constant SVG_SCAFFOLD = '<svg viewBox="-100 -100 600 350" style="background: #D3D3'
+    'D3;" xmlns="http://www.w3.org/2000/svg"> <defs> <radialGradient id="pitGradientPlayer1" cx="50%" '
+    'cy="50%" r="50%" fx="50%" fy="50%"> <stop offset="0%" style="stop-color:#8B5A2B; stop-opacity:1" '
+    '/> <stop offset="100%" style="stop-color:#4E2C1E; stop-opacity:1" /> </radialGradient> <radialGra'
+    'dient id="pitGradientPlayer2" cx="50%" cy="50%" r="50%" fx="50%" fy="50%"> <stop offset="0%" styl'
+    'e="stop-color:#9B8B7B; stop-opacity:1" /> <stop offset="100%" style="stop-color:#70645E; stop-opa'
+    'city:1" /> </radialGradient> <rect id="base-rect" width="50" height="90" x="0" y="0" rx="15" styl'
+    'e="fill:#a06734;fill-opacity:1;stroke-width:0.5;stroke:#a06734" /> <circle id="pit-0" r="20" fill'
+    '="url(#pitGradientPlayer1)"/> <circle id="pit-1" r="20" fill="url(#pitGradientPlayer2)"/> <circle'
+    ' id="seed" r="2" fill="#FFFFF0"/> <g id="score-board-0"> <rect width="50" height="90" x="0" y="0"'
+    ' rx="15" style="fill:#a06734;fill-opacity:1;stroke-width:0.2;stroke:#a06734" /> <rect width="34" '
+    'height="78" x="8" y="6" rx="15" fill="url(#pitGradientPlayer1)" /> </g> <g id="score-board-1"> <r'
+    'ect width="50" height="90" x="0" y="0" rx="15" style="fill:#a06734;fill-opacity:1;stroke-width:0.'
+    '2;stroke:#a06734" /> <rect width="34" height="78" x="8" y="6" rx="15" fill="url(#pitGradientPlaye'
+    'r2)" /> </g> </defs> <style> .fade { animation: fadeOut 2s 3s forwards; } .index-label { fill: bl'
+    'ack; font-size: 12px; font-weight: 600; text-anchor: middle; font-family: "Poppins", sans-serif; '
+    '} .grow { animation: growIn 2s 3s forwards; } @keyframes fadeOut { from { opacity: 1; } to { opac'
+    'ity: 0; } } @keyframes growIn { from { opacity: 0; } to { opacity: 1; } } .orbit { fill: none; st'
+    'roke: #2E8B57; stroke-width: 1.5; stroke-dasharray: 157; stroke-dashoffset: 157; animation: dra'
+    'wCircle 4s linear infinite; } @keyframes drawCircle { 0%, 100% { stroke-dashoffset: 157; } 50% { '
+    'stroke-dashoffset: 0; } } </style>';
 
     function getMetadata(uint256 board, uint256 move) internal pure returns(string memory){
         uint256 newBoard = Ayo.applyMove(board, move);
@@ -39,7 +39,7 @@ library AyoBoard {
                 "Player ",
                 String.toString(uint256(Ayo2x6.getPlayerTurn(board))),
                 " sows seeds in pit index ",
-                String.toString(move)
+                String.toString(move - (Ayo.getBoardWidth(board) * 0x02))
             )
         );
         
