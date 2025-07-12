@@ -27,11 +27,11 @@ contract AyoTest is Test {
         vm.startPrank(player1);
         ayo.joinGame(true);
         vm.stopPrank();
-        
-        uint256 move = type(uint).max;
+
+        uint256 move = type(uint256).max;
         uint256 board;
-        for(uint256 i; move!=0; i++){
-            (board, ,) = ayo.getGameData();
+        for (uint256 i; move != 0; i++) {
+            (board,,) = ayo.getGameData();
             move = Ayo2x6Engine.searchMoves(board, 3);
             move = Ayo.getPitIndex(move, board);
 
@@ -40,11 +40,11 @@ contract AyoTest is Test {
             ayo.playGame(move, 0, true);
             vm.stopPrank();
 
-            (board, ,) = ayo.getGameData();
+            (board,,) = ayo.getGameData();
             move = Ayo2x6Engine.searchMoves(board, 3);
-            if(move == 0) break;
+            if (move == 0) break;
             move = Ayo.getPitIndex(move, board);
-            
+
             // prank second player
             vm.startPrank(player1);
             ayo.playGame(move, 0, true);
