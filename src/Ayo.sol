@@ -121,21 +121,10 @@ library Ayo {
                     shiftrMask := not(shr(indexMul, 0x7C00000000000000000000000000000000000000000000000000000000000000))
 
                     // increment pit.
-                    board :=
-                        add(
-                            board,
-                            shr(add(indexMul, 0x05), 0x8000000000000000000000000000000000000000000000000000000000000000)
-                        )
-                    let ayoPit :=
-                        shr(
-                            0xFA,
-                            shl(
-                                indexMul,
-                                and(
-                                    shr(indexMul, 0xFC00000000000000000000000000000000000000000000000000000000000000), board
-                                )
-                            )
-                        )
+                    // forgefmt: disable-next-item
+                    board := add(board, shr(add(indexMul, 0x05), 0x8000000000000000000000000000000000000000000000000000000000000000))
+                    // forgefmt: disable-next-item
+                    let ayoPit := shr(0xFA, shl(indexMul, and(shr(indexMul, 0xFC00000000000000000000000000000000000000000000000000000000000000), board)))
                     let ayoPitSeed := and(ayoPit, 0x1F)
                     let ayoPitId := shr(0x05, ayoPit)
 
@@ -206,14 +195,8 @@ library Ayo {
             bool ownsPit;
             uint256 pitSeed;
             assembly {
-                let ayoPit :=
-                    shr(
-                        0xFA,
-                        shl(
-                            indexMul,
-                            and(shr(indexMul, 0xFC00000000000000000000000000000000000000000000000000000000000000), board)
-                        )
-                    )
+                // forgefmt: disable-next-item
+                let ayoPit := shr(0xFA, shl(indexMul, and(shr(indexMul, 0xFC00000000000000000000000000000000000000000000000000000000000000), board)))
                 let ayoPitSeed := and(ayoPit, 0x1F)
                 let ayoPitId := shr(0x05, ayoPit)
                 ownsPit := eq(ayoPitId, pTurn)
@@ -246,14 +229,8 @@ library Ayo {
                 let indexMul := mul(currentIndex, 0x06)
 
                 // get the current pit seeds
-                let ayoPit :=
-                    shr(
-                        0xFA,
-                        shl(
-                            indexMul,
-                            and(shr(indexMul, 0xFC00000000000000000000000000000000000000000000000000000000000000), board)
-                        )
-                    )
+                // forgefmt: disable-next-item
+                let ayoPit := shr(0xFA, shl(indexMul, and(shr(indexMul, 0xFC00000000000000000000000000000000000000000000000000000000000000), board)))
                 let ayoPitSeed := and(ayoPit, 0x1F)
                 let ayoPitId := shr(0x05, ayoPit)
 
@@ -322,17 +299,8 @@ library Ayo {
     function getPitSeeds(uint256 index, uint256 board) internal pure returns (uint256 seed) {
         assembly {
             let indexMul := mul(index, 0x06)
-            seed :=
-                and(
-                    shr(
-                        0xFA,
-                        shl(
-                            indexMul,
-                            and(shr(indexMul, 0xFC00000000000000000000000000000000000000000000000000000000000000), board)
-                        )
-                    ),
-                    0x1F
-                )
+            // forgefmt: disable-next-item
+            seed := and(shr(0xFA, shl(indexMul, and(shr(indexMul, 0xFC00000000000000000000000000000000000000000000000000000000000000), board))), 0x1F)
         }
     }
 
@@ -545,7 +513,7 @@ library Ayo {
             let shiftrMask := shr(indexMul, 0x7C00000000000000000000000000000000000000000000000000000000000000)
             // set numSeeds to seeds in the current pit.
             let numSeeds := shr(0xFA, shl(indexMul, and(shiftrMask, board)))
-            
+
             if iszero(iszero(numSeeds)) {
                 // clear starting pit
                 board := and(board, not(shiftrMask))
@@ -561,26 +529,10 @@ library Ayo {
                     shiftrMask := not(shr(indexMul, 0x7C00000000000000000000000000000000000000000000000000000000000000))
 
                     // increment pit.
-                    board :=
-                        add(
-                            board,
-                            shr(add(indexMul, 0x05), 0x8000000000000000000000000000000000000000000000000000000000000000)
-                        )
-
-                    let ayoPitSeed :=
-                        and(
-                            shr(
-                                0xFA,
-                                shl(
-                                    indexMul,
-                                    and(
-                                        shr(indexMul, 0xFC00000000000000000000000000000000000000000000000000000000000000),
-                                        board
-                                    )
-                                )
-                            ),
-                            0x1F
-                        )
+                    // forgefmt: disable-next-item
+                    board := add(board, shr(add(indexMul, 0x05), 0x8000000000000000000000000000000000000000000000000000000000000000))
+                    // forgefmt: disable-next-item
+                    let ayoPitSeed := and(shr(0xFA, shl(indexMul, and(shr(indexMul, 0xFC00000000000000000000000000000000000000000000000000000000000000), board))), 0x1F)
                     // let ayoPitId := shr(0x05, ayoPit)
                     let ayoPitId := div(sub(currentIndex, sub(0x13, boardWidth)), nPlayers)
 
